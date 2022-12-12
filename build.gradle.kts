@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.5.10"
-    antlr
     application
+    antlr
 }
 
 group = "me.artem"
@@ -16,6 +16,15 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     antlr("org.antlr:antlr4:4.11.1")
+}
+
+tasks.named<AntlrTask>("generateGrammarSource").configure {
+    arguments.addAll(listOf( "-visitor", "-no-listener"))
+    outputDirectory = File("src/main/java")
+}
+
+tasks.named("compileKotlin").configure {
+    dependsOn("generateGrammarSource")
 }
 
 tasks.test {

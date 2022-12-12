@@ -1,6 +1,6 @@
 grammar arifm_g;
 st: variable ';' | expr ';';
-expr: expr '+' expr | expr '*' expr | '('expr')' | VAR | INT ;
+expr: expr '*' expr | expr '+' expr | '('expr')' | VAR | INT ;
 variable: VAR'='expr;
 
 INT: ('0'..'9')+;
